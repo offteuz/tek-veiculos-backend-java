@@ -1,0 +1,38 @@
+services:
+  database:
+    container_name: postgres_tekveiculos
+    image: postgres:latest
+    ports:
+      - '${DB_PORT}:5432'
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql
+
+  pgadmin:
+    container_name: pgadmin_tekveiculos
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    ports:
+      - '${PGADMIN_PORT}:80'
+    depends_on:
+      - database
+
+  grafana-lgtm:
+    image: 'grafana/otel-lgtm:latest'
+    ports:
+      - '3000:3000'
+      - '4317'
+      - '4318'
+
+  redis:
+    image: 'redis:latest'
+    ports:
+      - '6379'
+
+volumes:
+  pgdata:
