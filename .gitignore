@@ -34,3 +34,6 @@ build/
 
 ### Credentials ###
 .env
+
+### IA ###
+.claude/*
