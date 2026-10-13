@@ -44,8 +44,6 @@ public class VehicleService {
         }
 
         Vehicle vehicle = vehicleMapper.toDomain(command);
-        System.out.println("color: " + vehicle.getColor());
-        System.out.println("number vehicle: " + vehicle.getNumberVehicle());
 
         if (vehicleRepository.existsByPlate(vehicle.getPlate().plate())) {
             throw new PlateAlreadyExistsException(vehicle.getPlate().plate());
